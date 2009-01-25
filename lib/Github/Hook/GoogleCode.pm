@@ -103,7 +103,7 @@ sub update_ticket {
 sub signin_google_code {
     my $self = shift;
 
-    $self->mech->follow_link( url_regex => qr/Login/ );
+    $self->mech->follow_link( url_regex => qr!^http://www\.google\.com/accounts/Login! );
     $self->mech->submit_form(
         with_fields => {
             Email  => $self->email,
