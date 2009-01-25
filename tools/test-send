@@ -26,7 +26,7 @@ my $res = LWP::UserAgent->new->post($uri, { payload => << "JSON" });
       "url": "http://github.com/defunkt/github/commit/41a212ee83ca127e3c8cf465891ab7216a705f59",
       "author": {
         "email": "john\@example.com",
-        "name": "John Smigh"
+        "name": "John Smith"
       },
       "message": "$message",
       "timestamp": "2008-02-15T14:57:17-08:00",
