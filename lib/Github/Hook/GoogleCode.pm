@@ -90,7 +90,7 @@ sub update_ticket {
     my($self, $res, $commit) = @_;
 
     $self->get_ticket_page($res->{id});
-    if ($self->mech->content =~ /Sign in/) {
+    if ($self->mech->content =~ m!www.google.com/accounts/Login!) {
         $self->signin_google_code;
         $self->get_ticket_page($res->{id});
     }
