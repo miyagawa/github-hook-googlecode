@@ -1,0 +1,47 @@
+This is a github post-receive hook server to accept your Github changes to automatically update Google Code issue tracker.
+
+## How to setup
+
+This script will run as a web server and accepts configurations in its command line option.
+
+    % ./github-hook-googlecode.pl --port 9999 --path /github-hook --project remedie --email john.smith
+    password:
+    HTTP::Server::Simple: You can connect to your server at http://localhost:9999/
+
+You can specify the port the server listens to, which is I<9999> by default.
+
+`--path` specifies the Post-receive URL path that you can set in the Github service tab. It defaults to `/` but for the extra security you might want to change it to something else like `/something-secret` so that nobody can use this server to make updates to your project tickets. (I wish Github signs the envelope with a shared key so that we don't need to do this)
+
+`--project` is the name for your Google Code project, as seen in http://code.google.com/p/PROJECT/
+
+`--email` is the account email address you use to sign in Google Code. You can omit `@gmail.com` here.
+
+You can either specify the password with `--password` command line option, or otherwise the script will prompt you with no-echo. The command line option will be more useful for an automatic restart, but more insecure obviously. This script tries to change its process name after the startup to hide the path and password in `ps` output.
+
+## Google Accounts
+
+Since Google Code doesn't have any API, this code does scraping with WWW::Mechanize to update Google Code. The login information and cookies are kept in memory and is never dumped to any files, but **it's highly recommended that you create another account on Google**, separate from your main one, and then add the bot account to your project member so that the bot can update Google Code tickets.
+
+## Syntax
+
+This uses the same syntax used in Lighthouse hook, explained at http://lighthouseapp.com/help/setting-up-subversion-integration
+
+Examples:
+
+    Added a link to Twitter.com [#12]
+
+This adds a comment and link to Github commit, but doesn't change any of the attributes of ticket #12 on Google Code.
+
+    Fixed a memory leak bug. [#12 label:Security milestone:0.8 status:Fixed owner:jesse]
+
+This adds a comment and link to the commit, then changes the various values of the ticket #12.
+
+`milestone:0.8` is an alias of `label:Milestone-0.8`, but will update the existent label if there's already one with `Milestone-*`. The same with `type` for `Type-*` and `priority` for `Priority-*`. `state` is an alias for `state`.
+
+## LICENSE
+
+Same as Perl.
+
+## AUTHOR
+
+Tatsuhiko Miyagawa

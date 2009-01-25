@@ -1,0 +1,24 @@
+#!/usr/bin/perl
+use strict;
+use lib "lib";
+use Github::Hook::GoogleCode;
+
+$0 = "github-hook-googlecode";
+
+Github::Hook::GoogleCode->new_with_options->run;
+
+__END__
+
+=head1 NAME
+
+github-hook-googlecode
+
+=head1 SYNOPSIS
+
+See L<README.mkdn> file in the distribution for details.
+
+=head1 AUTHOR
+
+Tatsuhiko Miyagawa
+
+=cut
