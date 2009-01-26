@@ -126,7 +126,7 @@ sub setup_fields {
     my($self, $res, $commit) = @_;
 
     my %fields = (
-        comment => "Fixed by " . $commit->{author}{name} . " with " . substr($commit->{id}, 0, 7) . "\n" .
+        comment => $commit->{author}{name} . " committed " . substr($commit->{id}, 0, 7) . "\n" .
             $commit->{url} . "\n\n" . $commit->{message},
     );
 
